@@ -15,16 +15,17 @@ import static eu.anmore.hubs.api.spring.ServiceRegistererBuilder.serviceRegister
 @SpringBootApplication
 public class BootServiceSampleApplication {
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
     public static void main(String[] args) {
         SpringApplication.run(BootServiceSampleApplication.class, args);
     }
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
     @Bean
     public ServiceRegisterer serviceRegisterer() {
-        return serviceRegistererBuilder(applicationContext).get();
+        return serviceRegistererBuilder(applicationContext).withServiceUrl("http://localhost:8081/").withHubUrl
+                ("http://localhost:8080/").get();
     }
 
     @Bean

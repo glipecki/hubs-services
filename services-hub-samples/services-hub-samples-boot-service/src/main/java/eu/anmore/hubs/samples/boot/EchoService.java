@@ -4,6 +4,8 @@ import eu.anmore.hubs.registration.HubService;
 import eu.anmore.hubs.registration.ServiceRegistration;
 import org.springframework.stereotype.Component;
 
+//  curl -X POST http://localhost:8080/api/v1/services/EchoService/call -H "Content-Type: application/json" -H "Accept: application/json" -d 'test'
+// test
 @Component
 public class EchoService implements HubService {
 

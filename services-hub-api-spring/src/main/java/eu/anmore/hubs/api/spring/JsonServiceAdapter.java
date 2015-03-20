@@ -6,6 +6,7 @@ import eu.anmore.hubs.registration.HubService;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 public abstract class JsonServiceAdapter<REQUEST, RESPONSE> implements HubService {
 
@@ -14,10 +15,25 @@ public abstract class JsonServiceAdapter<REQUEST, RESPONSE> implements HubServic
     private final Class<RESPONSE> responseClass;
 
     public JsonServiceAdapter() {
-        this.requestClass = (Class<REQUEST>) ((ParameterizedType) getClass()
+        Type requestType = ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
-        this.responseClass = (Class<RESPONSE>) ((ParameterizedType) getClass()
+        if (requestType instanceof Class) {
+            this.requestClass = (Class<REQUEST>) requestType;
+        } else if (requestType instanceof ParameterizedType) {
+            this.requestClass = (Class<REQUEST>) ((ParameterizedType) requestType).getRawType();
+        } else {
+            throw new RuntimeException("Can't parse request type");
+        }
+
+        Type responseType = ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[1];
+        if (responseType instanceof Class) {
+            this.responseClass = (Class<RESPONSE>) responseType;
+        } else if (responseType instanceof ParameterizedType) {
+            this.responseClass = (Class<RESPONSE>) ((ParameterizedType) responseType).getRawType();
+        } else {
+            throw new RuntimeException("Can't parse response type");
+        }
     }
 
     public String call(String in) {

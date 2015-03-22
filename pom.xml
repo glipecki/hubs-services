@@ -8,6 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+    <name>Services Hub</name>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -19,7 +21,6 @@
 		<module>services-hub-service</module>
 		<module>services-hub-samples</module>
 		<module>services-hub-api</module>
-		<module>untitled</module>
 		<module>services-hub-api-spring</module>
 	</modules>
 

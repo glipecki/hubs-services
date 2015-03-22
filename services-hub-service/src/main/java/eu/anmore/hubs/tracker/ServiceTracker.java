@@ -43,8 +43,9 @@ public class ServiceTracker {
     public Collection<String> getServices() {
         return serviceRepository
                 .findAll()
-                .stream()
+                .parallelStream()
                 .map(s -> s.name)
+                .distinct()
                 .collect(Collectors.toList());
     }
 

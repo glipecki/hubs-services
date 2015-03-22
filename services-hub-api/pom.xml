@@ -12,5 +12,7 @@
 
     <artifactId>services-hub-api</artifactId>
 
+    <name>Services Hub :: API</name>
+
 
 </project>

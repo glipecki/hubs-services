@@ -12,6 +12,8 @@
 
     <artifactId>services-hub-api-spring</artifactId>
 
+    <name>Services Hub :: API :: Spring Boot integration</name>
+
     <dependencies>
         <!-- Internal -->
         <dependency>

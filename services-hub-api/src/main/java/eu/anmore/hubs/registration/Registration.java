@@ -9,6 +9,14 @@ public class Registration {
 
     public List<ServiceRegistration> services = new ArrayList<>();
 
+    public Registration() {
+    }
+
+    public Registration(String url, List<ServiceRegistration> services) {
+        this.url = url;
+        this.services.addAll(services);
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Registration{");

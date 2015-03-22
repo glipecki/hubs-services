@@ -2,6 +2,8 @@ package eu.anmore.hubs.api.spring;
 
 import eu.anmore.hubs.registration.HubService;
 import eu.anmore.hubs.registration.Registration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,7 +55,7 @@ public class ServiceRegisterer {
 
         for (String hubUrl : this.hubUrls) {
             String response = restTemplate
-                    .postForObject(hubUrl + "/api/v1/registration/register", registration, String.class);
+                    .postForObject(hubUrl + "/api/v1/registration", registration, String.class);
         }
     }
 
@@ -65,7 +67,7 @@ public class ServiceRegisterer {
         registration.url = this.serviceUrl;
 
         for (String hubUrl : this.hubUrls) {
-            restTemplate.postForObject(hubUrl + "/api/v1/registration/unregister", registration, String.class);
+            restTemplate.exchange(hubUrl + "/api/v1/registration", HttpMethod.DELETE, new HttpEntity(registration), String.class);
         }
     }
 

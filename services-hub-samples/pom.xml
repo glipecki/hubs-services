@@ -17,4 +17,6 @@
     <artifactId>services-hub-samples</artifactId>
     <packaging>pom</packaging>
 
+    <name>Services Hub :: Samples</name>
+
 </project>

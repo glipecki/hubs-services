@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.List;
+
+import static eu.anmore.hubs.registration.RegistrationControllerDescriptor.PATH;
+
 
 @RestController
-@RequestMapping("/api/v1/registration")
+@RequestMapping(PATH)
 public class RegistrationController {
 
     private final ServiceTracker serviceTracker;
@@ -23,22 +25,22 @@ public class RegistrationController {
         this.serviceTracker = serviceTracker;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String registerServices(@RequestBody final Registration registration) {
-        LOG.info("Registering remote services [registration={}]", registration);
+        LOG.info("Registering endpoint [registration={}]", registration);
         serviceTracker.register(registration);
         return "ok";
     }
 
-    @RequestMapping(value = "/unregister", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public String unregisterServices(@RequestBody final Registration registration) {
-        LOG.info("Unregistering remote services [registration={}]", registration);
+        LOG.info("Removing endpoint [registration={}]", registration);
         serviceTracker.unregister(registration.url);
         return "ok";
     }
 
-    @RequestMapping("/services")
-    public Collection<String> services() {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public Collection<String> getServices() {
         return serviceTracker.getServices();
     }
 

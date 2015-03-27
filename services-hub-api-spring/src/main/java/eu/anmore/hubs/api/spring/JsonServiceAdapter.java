@@ -2,6 +2,8 @@ package eu.anmore.hubs.api.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.anmore.hubs.registration.HubService;
+import eu.anmore.hubs.service.ServiceRequest;
+import eu.anmore.hubs.service.ServiceResponse;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -36,14 +38,14 @@ public abstract class JsonServiceAdapter<REQUEST, RESPONSE> implements HubServic
         }
     }
 
-    public String call(String in) {
+    public ServiceResponse call(ServiceRequest in) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            REQUEST request = (REQUEST) objectMapper.readValue(in, requestClass);
+            REQUEST request = (REQUEST) objectMapper.readValue(in.getData().getRawJson(), requestClass);
             RESPONSE response = callService(request);
             StringWriter writer = new StringWriter();
             objectMapper.writeValue(writer, response);
-            return writer.toString();
+            return new ServiceResponse(writer.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

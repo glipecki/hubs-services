@@ -2,6 +2,8 @@ package eu.anmore.hubs.api.spring;
 
 import eu.anmore.hubs.registration.HubService;
 import eu.anmore.hubs.registration.Registration;
+import eu.anmore.hubs.service.ServiceRequest;
+import eu.anmore.hubs.service.ServiceResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,7 @@ public class ServiceRegisterer {
     }
 
     @RequestMapping(value = "/{serviceName}/call", method = RequestMethod.POST)
-    public String call(@PathVariable final String serviceName, @RequestBody final String in) {
+    public ServiceResponse call(@PathVariable final String serviceName, @RequestBody final ServiceRequest in) {
         for (HubService hubService : hubServices) {
             if (hubService.getServiceRegistration().name.equals(serviceName)) {
                 return hubService.call(in);

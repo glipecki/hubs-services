@@ -2,6 +2,8 @@ package eu.anmore.hubs.samples.boot;
 
 import eu.anmore.hubs.registration.HubService;
 import eu.anmore.hubs.registration.ServiceRegistration;
+import eu.anmore.hubs.service.ServiceRequest;
+import eu.anmore.hubs.service.ServiceResponse;
 import org.springframework.stereotype.Component;
 
 //  curl -X POST http://localhost:8080/api/v1/services/EchoService/call -H "Content-Type: application/json" -H "Accept: application/json" -d 'test'
@@ -15,8 +17,8 @@ public class EchoService implements HubService {
     }
 
     @Override
-    public String call(String in) {
-        return in;
+    public ServiceResponse call(ServiceRequest in) {
+        return new ServiceResponse(in.getData().getRawJson());
     }
 
 }

@@ -4,20 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <modules>
-        <module>services-hub-samples-boot-service</module>
-        <module>services-hub-samples-e-services</module>
-    </modules>
-
     <parent>
-        <artifactId>services-hub</artifactId>
+        <artifactId>services-hub-samples</artifactId>
         <groupId>eu.anmore.hubs</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>services-hub-samples</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>services-hub-samples-e-services</artifactId>
 
-    <name>Services Hub :: Samples</name>
 
 </project>

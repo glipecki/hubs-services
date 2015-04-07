@@ -1,5 +1,7 @@
 package eu.anmore.hubs.service;
 
+import eu.anmore.hubs.service.tracker.db.ServiceEntity;
+import eu.anmore.hubs.service.tracker.db.ServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

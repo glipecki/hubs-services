@@ -1,6 +1,6 @@
 package eu.anmore.hubs.api.spring;
 
-import eu.anmore.hubs.registration.HubService;
+import eu.anmore.hubs.service.HubService;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;

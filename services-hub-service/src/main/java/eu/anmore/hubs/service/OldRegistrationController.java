@@ -1,6 +1,10 @@
-package eu.anmore.hubs.registration;
+package eu.anmore.hubs.service;
 
-import eu.anmore.hubs.tracker.ServiceTracker;
+import eu.anmore.hubs.HubInfo;
+import eu.anmore.hubs.HubUuid;
+import eu.anmore.hubs.registration.AddRegistrationResult;
+import eu.anmore.hubs.registration.Registration;
+import eu.anmore.hubs.service.tracker.db.DbServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,25 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-import static eu.anmore.hubs.registration.RegistrationControllerDescriptor.PATH;
-
 
 @RestController
-@RequestMapping(PATH)
-public class RegistrationController {
+@RequestMapping("/api/v1/registration")
+public class OldRegistrationController {
 
-    private final ServiceTracker serviceTracker;
+    private static final Logger LOG = LoggerFactory.getLogger(OldRegistrationController.class);
+    private final DbServiceTracker serviceTracker;
+    private HubUuid hubUuid;
 
     @Autowired
-    public RegistrationController(ServiceTracker serviceTracker) {
+    public OldRegistrationController(DbServiceTracker serviceTracker, HubUuid hubUuid) {
         this.serviceTracker = serviceTracker;
+        this.hubUuid = hubUuid;
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String registerServices(@RequestBody final Registration registration) {
+    public AddRegistrationResult registerServices(@RequestBody final Registration registration) {
         LOG.info("Registering endpoint [registration={}]", registration);
         serviceTracker.register(registration);
-        return "ok";
+        return new AddRegistrationResult(new HubInfo(hubUuid));
     }
 
     @RequestMapping(value = "", method = RequestMethod.DELETE)
@@ -43,7 +48,5 @@ public class RegistrationController {
     public Collection<String> getServices() {
         return serviceTracker.getServices();
     }
-
-    private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
 
 }

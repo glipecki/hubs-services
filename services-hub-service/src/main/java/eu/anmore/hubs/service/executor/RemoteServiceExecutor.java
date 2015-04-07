@@ -1,31 +1,23 @@
-package eu.anmore.hubs.service;
+package eu.anmore.hubs.service.executor;
 
-import com.google.common.eventbus.EventBus;
-import eu.anmore.hubs.event.ServiceCalledSuccessfullyEvent;
+import eu.anmore.hubs.service.ServiceCall;
+import eu.anmore.hubs.service.ServiceEndpoint;
+import eu.anmore.hubs.service.ServiceResponse;
+import eu.anmore.hubs.service.executor.ServiceExecutor;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Date;
 
 public class RemoteServiceExecutor implements ServiceExecutor {
 
     private RestTemplate restTemplate;
 
-    private EventBus eventBus;
-
-    public RemoteServiceExecutor(RestTemplate restTemplate, EventBus eventBus) {
+    public RemoteServiceExecutor(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.eventBus = eventBus;
     }
 
     @Override
     public ServiceResponse call(ServiceEndpoint endpoint, ServiceCall serviceCall) {
-        final ServiceResponse serviceResponse = getRemoteServiceResponse(endpoint, serviceCall);
-
-        serviceCall.setServiceResponse(serviceResponse, new Date());
-        eventBus.post(ServiceCalledSuccessfullyEvent.of(serviceCall));
-
-        return serviceResponse;
+        return getRemoteServiceResponse(endpoint, serviceCall);
     }
 
     protected ServiceResponse getRemoteServiceResponse(ServiceEndpoint endpoint, ServiceCall serviceCall) {

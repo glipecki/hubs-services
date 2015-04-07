@@ -6,32 +6,23 @@ import java.util.Date;
 public class ServiceCall {
 
     private ServiceRequest serviceRequest;
-
     private Date requestDate;
-
     private ServiceResponse serviceResponse;
-
     private Date responseDate;
-
     private Long processingTime;
-
     private Exception exception;
-
     private Date exceptionDate;
-
     private ServiceEndpoint endpoint;
-
-    private Collection<ServiceEndpoint> endpointMetches;
+    private Collection<ServiceEndpoint> endpointMatches;
     private String requestUrl;
     private String exceptionMessageDetails;
 
-    private ServiceCall(ServiceRequest serviceRequest, Date requestDate) {
-        this.serviceRequest = serviceRequest;
-        this.requestDate = requestDate;
+    public ServiceCall() {
     }
 
-    public static ServiceCall ofServiceRequest(ServiceRequest serviceRequest, Date requestDate) {
-        return new ServiceCall(serviceRequest, requestDate);
+    public void setServiceRequest(ServiceRequest serviceRequest, Date date) {
+        this.serviceRequest = serviceRequest;
+        this.requestDate = date;
     }
 
     public void setServiceResponse(ServiceResponse serviceResponse, Date responseDate) {
@@ -49,29 +40,28 @@ public class ServiceCall {
         return serviceRequest;
     }
 
-    public void setSelectedEndpoint(ServiceEndpoint selectedEndpoint, Collection<ServiceEndpoint> endpoints) {
+    public void setSelectedEndpoint(ServiceEndpoint selectedEndpoint) {
         this.endpoint = selectedEndpoint;
-        this.endpointMetches = endpoints;
     }
 
     public Long getProcessingTime() {
         return processingTime;
     }
 
-    public String getRequestUrl() {
-        return requestUrl;
-    }
-
     public void setRequestUrl(String requestUrl) {
         this.requestUrl = requestUrl;
     }
 
-    public String getExceptionMessageDetails() {
-        return exceptionMessageDetails;
-    }
-
     public void setExceptionMessageDetails(String exceptionMessageDetails) {
         this.exceptionMessageDetails = exceptionMessageDetails;
+    }
+
+    public void setEndpointMatches(Collection<ServiceEndpoint> endpointMatches) {
+        this.endpointMatches = endpointMatches;
+    }
+
+    public ServiceEndpoint getEndpoint() {
+        return endpoint;
     }
 
     @Override
@@ -85,10 +75,11 @@ public class ServiceCall {
         sb.append(", exception=").append(exception);
         sb.append(", exceptionDate=").append(exceptionDate);
         sb.append(", endpoint=").append(endpoint);
-        sb.append(", endpointMetches=").append(endpointMetches);
+        sb.append(", endpointMatches=").append(endpointMatches);
         sb.append(", requestUrl='").append(requestUrl).append('\'');
         sb.append(", exceptionMessageDetails='").append(exceptionMessageDetails).append('\'');
         sb.append('}');
         return sb.toString();
     }
+
 }

@@ -1,4 +1,4 @@
-package eu.anmore.hubs.service;
+package eu.anmore.hubs.service.tracker.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

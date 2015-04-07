@@ -3,6 +3,9 @@ target/
 *.db
 .idea
 
+*.vpp~*
+*vpp.working
+
 *.class
 
 # Mobile Tools for Java (J2ME)

@@ -1,7 +1,7 @@
 package eu.anmore.hubs.api.spring;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.anmore.hubs.registration.HubService;
+import eu.anmore.hubs.service.HubService;
 import eu.anmore.hubs.service.ServiceRequest;
 import eu.anmore.hubs.service.ServiceResponse;
 

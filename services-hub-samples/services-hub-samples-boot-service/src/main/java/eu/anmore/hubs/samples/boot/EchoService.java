@@ -1,6 +1,6 @@
 package eu.anmore.hubs.samples.boot;
 
-import eu.anmore.hubs.registration.HubService;
+import eu.anmore.hubs.service.HubService;
 import eu.anmore.hubs.registration.ServiceRegistration;
 import eu.anmore.hubs.service.ServiceRequest;
 import eu.anmore.hubs.service.ServiceResponse;

@@ -3,19 +3,13 @@ package eu.anmore.hubs.service;
 public class ServiceEndpoint {
 
     private final String name;
-
     private final String version;
-
     private final HubEndpoint hubEndpoint;
 
     public ServiceEndpoint(String name, String version, HubEndpoint hubEndpoint) {
         this.name = name;
         this.version = version;
         this.hubEndpoint = hubEndpoint;
-    }
-
-    public static ServiceEndpoint of(ServiceEntity serviceEntity) {
-        return new ServiceEndpoint(serviceEntity.name, serviceEntity.version, HubEndpoint.of(serviceEntity.url));
     }
 
     @Override

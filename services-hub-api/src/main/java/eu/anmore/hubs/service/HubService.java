@@ -1,5 +1,6 @@
-package eu.anmore.hubs.registration;
+package eu.anmore.hubs.service;
 
+import eu.anmore.hubs.registration.ServiceRegistration;
 import eu.anmore.hubs.service.ServiceRequest;
 import eu.anmore.hubs.service.ServiceResponse;
 

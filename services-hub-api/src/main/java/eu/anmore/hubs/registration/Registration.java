@@ -6,7 +6,6 @@ import java.util.List;
 public class Registration {
 
     public String url;
-
     public List<ServiceRegistration> services = new ArrayList<>();
 
     public Registration() {

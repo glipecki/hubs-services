@@ -66,8 +66,8 @@ public class ServicesHubConfiguration {
     }
 
     @Bean
-    public ServiceController serviceController(ServiceSelector serviceSelector, ServiceExecutor serviceExecutor, EventBus eventBus) {
-        return new RestServiceController(serviceSelector, serviceExecutor, eventBus);
+    public ServiceController serviceController(ServiceSelector serviceSelector, ServiceExecutor serviceExecutor, ServiceTracker serviceTracker, EventBus eventBus) {
+        return new RestServiceController(serviceSelector, serviceExecutor, serviceTracker, eventBus);
     }
 
     @Bean

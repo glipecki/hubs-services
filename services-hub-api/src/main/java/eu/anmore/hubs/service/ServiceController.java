@@ -6,7 +6,7 @@ public interface ServiceController {
 
     String callService(final String in, final String serviceName, final String serviceVersion, final Collection<String> tags);
 
-    // Collection<ServiceInfo> getServices();
+    Collection<ServiceInfo> getServices();
 
     // ServiceInfo getService();
 

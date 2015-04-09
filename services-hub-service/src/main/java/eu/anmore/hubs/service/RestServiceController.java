@@ -5,6 +5,7 @@ import eu.anmore.hubs.event.ServiceCalledSuccessfullyEvent;
 import eu.anmore.hubs.event.ServiceEndpointNotFoundEvent;
 import eu.anmore.hubs.service.executor.ServiceExecutor;
 import eu.anmore.hubs.service.selector.ServiceSelector;
+import eu.anmore.hubs.service.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +25,13 @@ public class RestServiceController implements ServiceController {
 
     private ServiceExecutor serviceExecutor;
 
+    private ServiceTracker serviceTracker;
     private EventBus eventBus;
 
-    public RestServiceController(ServiceSelector serviceSelector, ServiceExecutor serviceExecutor, EventBus eventBus) {
+    public RestServiceController(ServiceSelector serviceSelector, ServiceExecutor serviceExecutor, ServiceTracker serviceTracker, EventBus eventBus) {
         this.serviceSelector = serviceSelector;
         this.serviceExecutor = serviceExecutor;
+        this.serviceTracker = serviceTracker;
         this.eventBus = eventBus;
     }
 
@@ -61,9 +64,21 @@ public class RestServiceController implements ServiceController {
             if (serviceCall != null) {
                 serviceCall.setException(exception, new Date());
             }
+            // todo: emit event
             LOG.error("Exception while handling service call [serviceCall={}, exceptionMessage={}]", serviceCall, exception.getMessage());
             throw exception;
         }
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public Collection<ServiceInfo> getServices() {
+        LOG.trace("> Calling get services");
+
+        final Collection<ServiceInfo> result = serviceTracker.getServices();
+
+        LOG.trace("< called [services={}]", result);
+        return result;
     }
 
     private <T> void ifPresent(Optional<T> optional, Consumer<T> presentConsumer, Consumer<Optional<T>> notPresentConsumer) {

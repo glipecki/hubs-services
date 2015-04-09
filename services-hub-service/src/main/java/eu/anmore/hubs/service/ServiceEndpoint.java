@@ -3,7 +3,9 @@ package eu.anmore.hubs.service;
 public class ServiceEndpoint {
 
     private final String name;
+
     private final String version;
+
     private final HubEndpoint hubEndpoint;
 
     public ServiceEndpoint(String name, String version, HubEndpoint hubEndpoint) {

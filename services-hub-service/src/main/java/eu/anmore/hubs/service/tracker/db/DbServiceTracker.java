@@ -4,6 +4,7 @@ import eu.anmore.hubs.registration.Registration;
 import eu.anmore.hubs.service.HubEndpoint;
 import eu.anmore.hubs.service.ServiceCall;
 import eu.anmore.hubs.service.ServiceEndpoint;
+import eu.anmore.hubs.service.ServiceInfo;
 import eu.anmore.hubs.service.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +44,17 @@ public class DbServiceTracker implements ServiceTracker {
         serviceRepository.deleteByUrl(url);
     }
 
-    public Collection<String> getServices() {
-        return serviceRepository
+    @Override
+    public Collection<ServiceInfo> getServices() {
+        final Collection<String> services = serviceRepository
                 .findAll()
                 .parallelStream()
-                .map(s -> s.name)
+                .map(e -> e.name)
                 .distinct()
+                .collect(Collectors.toList());
+        return services
+                .parallelStream()
+                .map(name -> new ServiceInfo(name))
                 .collect(Collectors.toList());
     }
 

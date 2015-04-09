@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-
 
 @RestController
 @RequestMapping("/api/v1/registration")
@@ -42,11 +40,6 @@ public class OldRegistrationController {
         LOG.info("Removing endpoint [registration={}]", registration);
         serviceTracker.unregister(registration.url);
         return "ok";
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public Collection<String> getServices() {
-        return serviceTracker.getServices();
     }
 
 }

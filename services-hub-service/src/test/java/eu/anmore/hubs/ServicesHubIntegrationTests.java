@@ -2,6 +2,7 @@ package eu.anmore.hubs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.anmore.hubs.registration.Registration;
+import eu.anmore.hubs.service.ServiceInfo;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,12 +32,12 @@ public class ServicesHubIntegrationTests extends ServicesHubApplicationTests {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-    protected List<String> getServices() throws Exception {
+    protected List<ServiceInfo> getServices() throws Exception {
         String result = mockMvc
-                .perform(MockMvcRequestBuilders.get("/api/v1/registration"))
+                .perform(MockMvcRequestBuilders.get("/v1/service"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        return new ArrayList(Arrays.asList(new ObjectMapper().readValue(result, String[].class)));
+        return new ArrayList(Arrays.asList(new ObjectMapper().readValue(result, ServiceInfo[].class)));
     }
 
     protected String register(Registration registartion) throws Exception {
